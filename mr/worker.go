@@ -33,20 +33,24 @@ func Worker(mapf func(string, string) []KeyValue, reducef func(string, []string)
 	askTask()
 }
 
-// AskTask 申请任务，表示可以接受map或者reduce任务的执行
-func askTask() (reply MrReply) {
+// AskTask 申请任务，表示可以接受map或者reduce任务的执行,todo 把task的定义放到rpc包中，worker和coordinator公用
+func askTask() error {
 	args := MrArgs{}
 
-	reply = MrReply{}
+	reply := MrReply{}
 
-	ok := call("Coordinator.AssignTask", &args, &reply)
+	//
+
+	ok := call("Coordinator.getTask", &args, &reply)
 	if ok {
-		fmt.Printf("reply %v\n", reply)
-	} else {
-		fmt.Printf("call failed\n")
-	}
+		fmt.Printf("reply %v\n, start to process task", reply)
 
-	return
+		return nil
+	} else {
+		//如果调用失败,返回error
+		fmt.Printf("call failed\n")
+		return fmt.Errorf("call failed\n")
+	}
 }
 
 // example function to show how to make an RPC call to the coordinator.

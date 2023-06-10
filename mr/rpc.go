@@ -9,11 +9,19 @@ import (
 
 // MrArgs worker请求任务的参数
 type MrArgs struct {
+	TaskId string
 }
 
 // MrReply coordinator的返回值
 type MrReply struct {
-	Key string
+	//任务编号
+	TaskId string
+	//任务参数
+	Args string
+	//任务类型，0是MAP任务，1是reduce任务,-1没有任务
+	TaskType int
+	//切片数量
+	Split int
 }
 
 // 下面是示例的输入和输出参数
