@@ -34,7 +34,7 @@ func loadPlugin(filename string) (func(string, string) []mr.KeyValue, func(strin
 	//加载plugin
 	p, err := plugin.Open(filename)
 	if err != nil {
-		log.Fatalf("can`t load plugin %v", filename)
+		log.Fatalf("can`t load plugin %v, error %v", filename, err)
 	}
 
 	//加载Map函数

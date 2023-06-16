@@ -28,4 +28,5 @@ func main() {
 	}
 
 	time.Sleep(time.Second)
+	fmt.Println("all task finished")
 }
